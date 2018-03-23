@@ -12,8 +12,6 @@
 		AB92FF2D2064058800FC4824 /* PriceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB92FF292064058700FC4824 /* PriceAPI.swift */; };
 		AB92FF2E2064058800FC4824 /* APIBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB92FF2A2064058700FC4824 /* APIBase.swift */; };
 		AB92FF2F2064058800FC4824 /* BinaryPriceStreamDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB92FF2B2064058800FC4824 /* BinaryPriceStreamDecoder.swift */; };
-		AB92FF56206406BB00FC4824 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB92FF54206406BB00FC4824 /* CryptoSwift.framework */; };
-		AB92FF57206406BB00FC4824 /* SwiftWebSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB92FF55206406BB00FC4824 /* SwiftWebSocket.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,8 +22,6 @@
 		AB92FF292064058700FC4824 /* PriceAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceAPI.swift; sourceTree = "<group>"; };
 		AB92FF2A2064058700FC4824 /* APIBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIBase.swift; sourceTree = "<group>"; };
 		AB92FF2B2064058800FC4824 /* BinaryPriceStreamDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinaryPriceStreamDecoder.swift; sourceTree = "<group>"; };
-		AB92FF54206406BB00FC4824 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CryptoSwift.framework; sourceTree = "<group>"; };
-		AB92FF55206406BB00FC4824 /* SwiftWebSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftWebSocket.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,8 +29,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB92FF57206406BB00FC4824 /* SwiftWebSocket.framework in Frameworks */,
-				AB92FF56206406BB00FC4824 /* CryptoSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,8 +38,6 @@
 		AB92FF132064056D00FC4824 = {
 			isa = PBXGroup;
 			children = (
-				AB92FF54206406BB00FC4824 /* CryptoSwift.framework */,
-				AB92FF55206406BB00FC4824 /* SwiftWebSocket.framework */,
 				AB92FF1F2064056D00FC4824 /* OrexSwift */,
 				AB92FF1E2064056D00FC4824 /* Products */,
 			);
