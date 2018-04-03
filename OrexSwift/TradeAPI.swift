@@ -121,13 +121,11 @@ public class TradeAPI: APIBase {
     }
 
     public func getAccountSummaryRetail (accNumber: String) {
-        super.send(data: ["MTI": 4005, // 4000
-                          "accountNumber": accNumber])
+        super.send(data: ["MTI": 4005, "accountNumber": accNumber])
     }
 
-    public func getAccountSummary (accNumber: String) {
-        super.send(data: ["MTI": 4000,
-                          "accountNumber": accNumber])
+    public func getAccountSummary (accNumber: String = "", dosId: Int = -1) {
+        dosId != -1 ? super.send(data: ["MTI": 4000, "dosId": dosId]) : super.send(data: ["MTI": 4000, "accountNumber": accNumber])
     }
 
     public func getPositions (accNumber: String, asset: String) {
@@ -165,11 +163,20 @@ public class TradeAPI: APIBase {
                           "instrumentType": asset])
     }
 
-    public func getTicketListRetailReq (accNumber: String, asset: String) -> Promise {
-        return super.request(data: ["MTI": 1011,
-                                    "accountNumber": accNumber,
-                                    "noPagination": 1,
-                                    "instrumentType": asset])
+    public func getTicketListRetailReq (accNumber: String, asset: String, status: String = "") -> Promise {
+        if status == "" {
+            return super.request(data: ["MTI": 1011,
+                                        "accountNumber": accNumber,
+                                        "noPagination": 1,
+                                        "instrumentType": asset])
+        }
+        else {
+            return super.request(data: ["MTI": 1011,
+                                        "accountNumber": accNumber,
+                                        "noPagination": 1,
+                                        "status": status,
+                                        "instrumentType": asset])
+        }
     }
 
     public func getTicketList(accNumber: String, asset: String) -> Promise {

@@ -9,11 +9,11 @@ public typealias DATA = [String:Any]
 public class Promise {
     private var success : ( _ resp : DATA ) -> () = { resp in }
     private var failure : ( _ reason : String, _ resp : DATA ) -> () = { reason, resp in }
-    public func resolve(resp: DATA) {
+    internal func resolve(resp: DATA) {
         success(resp)
     }
 
-    public func reject(reason: String, resp : DATA) {
+    internal func reject(reason: String, resp : DATA) {
         failure(reason, resp)
     }
  
