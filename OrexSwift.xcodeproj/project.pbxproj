@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB496BFC208738F80038258E /* SwiftWebSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB496BFA208738F70038258E /* SwiftWebSocket.framework */; };
+		AB496BFD208738F80038258E /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB496BFB208738F80038258E /* CryptoSwift.framework */; };
 		AB92FF222064056E00FC4824 /* OrexSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = AB92FF202064056E00FC4824 /* OrexSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AB92FF2C2064058800FC4824 /* TradeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB92FF282064058700FC4824 /* TradeAPI.swift */; };
 		AB92FF2D2064058800FC4824 /* PriceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB92FF292064058700FC4824 /* PriceAPI.swift */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AB496BFA208738F70038258E /* SwiftWebSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftWebSocket.framework; sourceTree = "<group>"; };
+		AB496BFB208738F80038258E /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CryptoSwift.framework; sourceTree = "<group>"; };
 		AB92FF1D2064056D00FC4824 /* OrexSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OrexSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB92FF202064056E00FC4824 /* OrexSwift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrexSwift.h; sourceTree = "<group>"; };
 		AB92FF212064056E00FC4824 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -29,25 +33,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB496BFC208738F80038258E /* SwiftWebSocket.framework in Frameworks */,
+				AB496BFD208738F80038258E /* CryptoSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AB2ABB002065490D0056ED0F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		AB92FF132064056D00FC4824 = {
 			isa = PBXGroup;
 			children = (
+				AB496BFB208738F80038258E /* CryptoSwift.framework */,
+				AB496BFA208738F70038258E /* SwiftWebSocket.framework */,
 				AB92FF1F2064056D00FC4824 /* OrexSwift */,
 				AB92FF1E2064056D00FC4824 /* Products */,
-				AB2ABB002065490D0056ED0F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

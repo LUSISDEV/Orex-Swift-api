@@ -12,6 +12,8 @@ public protocol TradeDelegate: class {
 //    func TicketListResponse(data: DATA) // 1004
     func OrderUpdate(data: DATA) // 6000
     func AlertMessage(data: DATA) // 1320 1321 4010
+    func NewSignalReceived(data: DATA) // 1181
+    func ExpiredSignalsUpdate(data: DATA) // 1183
 }
 
 public class TradeAPI: APIBase {
@@ -80,17 +82,36 @@ public class TradeAPI: APIBase {
                 self.delegate?.AlertMessage(data: data)
                 break
             case 6000:
-                print(6000)
                 self.delegate?.OrderUpdate(data: data)
                 break
 //            case 6001: break
+            case 1181:
+//                let netData = data["netData"]
+//                if netData != nil {
+//                    let marketData = MarketData()
+//                    let instrumentList = marketData.decode(buffer: Array<Character>(netData as! String))
+//                    for instrument in instrumentList {
+//                        self.handlePriceUpdate(data: instrument)
+//                    }
+//                }
+//                else {
+//                    let instrumentList = data["instrumentList"] as! [DATA]
+//                    for instrument in instrumentList {
+//                        self.handlePriceUpdate(data: instrument)
+//                    }
+//                }
+                
+                self.delegate?.NewSignalReceived(data: data)
+                break
+            case 1183:
+                self.delegate?.ExpiredSignalsUpdate(data: data)
+                break
             default:
                 break
             }
         }
         else {
-            print(data
-            )
+            
         }
         super.OnMessage(data: data)
     }
@@ -119,15 +140,24 @@ public class TradeAPI: APIBase {
         }
         return super.request(data: data)
     }
+    
+    public func getSignalList (deviceTokenId: String) -> Promise {
+        return super.request(data: ["MTI":1180,
+                                    "deviceTokenId": deviceTokenId])
+    }
 
     public func getAccountSummaryRetail (accNumber: String) {
         super.send(data: ["MTI": 4005, "accountNumber": accNumber])
     }
 
-    public func getAccountSummary (accNumber: String = "", dosId: Int = -1) {
-        dosId != -1 ? super.send(data: ["MTI": 4000, "dosId": dosId]) : super.send(data: ["MTI": 4000, "accountNumber": accNumber])
+    public func getAccountSummary (accNumber: String) {
+        super.send(data: ["MTI": 4000, "accountNumber": accNumber])
     }
 
+    public func getAccountSummary (dosId: Int) {
+        super.send(data: ["MTI": 4000, "dosId": dosId])
+    }
+    
     public func getPositions (accNumber: String, asset: String) {
         self.send(data: ["MTI": 1005,
                                    "accountNumber": accNumber,
