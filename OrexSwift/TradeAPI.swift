@@ -1,19 +1,19 @@
 import UIKit
 import CryptoSwift
 
-public protocol TradeDelegate: class {
+@objc public protocol TradeDelegate: class {
     func tradeConnected()
-    func tradeDisconnected()
-    func TopAccountSummary(data: DATA) // 6000
-    func AccountSummaryRetailUpdate(data: DATA) // 4005
-    func AccountSummaryUpdate(data: DATA) // 4000
-    func PositionUpdate(data: DATA) // 1005
-    func TicketListRetailUpdate(data: DATA) // 1011
+    @objc optional func tradeDisconnected()
+    @objc optional func TopAccountSummary(data: DATA) // 6000
+    @objc optional func AccountSummaryRetailUpdate(data: DATA) // 4005
+    @objc optional func AccountSummaryUpdate(data: DATA) // 4000
+    @objc optional func PositionUpdate(data: DATA) // 1005
+    @objc optional func TicketListRetailUpdate(data: DATA) // 1011
 //    func TicketListResponse(data: DATA) // 1004
-    func OrderUpdate(data: DATA) // 6000
-    func AlertMessage(data: DATA) // 1320 1321 4010
-    func NewSignalReceived(data: DATA) // 1181
-    func ExpiredSignalsUpdate(data: DATA) // 1183
+    @objc optional func OrderUpdate(data: DATA) // 6000
+    @objc optional func AlertMessage(data: DATA) // 1320 1321 4010
+    @objc optional func NewSignalReceived(data: DATA) // 1181
+    @objc optional func ExpiredSignalsUpdate(data: DATA) // 1183
 }
 
 public class TradeAPI: APIBase {
@@ -52,7 +52,7 @@ public class TradeAPI: APIBase {
         if(devMode) {
             print("[TRADE] disconnected")
         }
-        delegate?.tradeDisconnected()
+        delegate?.tradeDisconnected?()
         super.OnClose()
     }
 
@@ -61,50 +61,35 @@ public class TradeAPI: APIBase {
             let mti = data["MTI"] as! Int
             switch (mti) {
             case 4012:
-                self.delegate?.TopAccountSummary(data: data)
+                self.delegate?.TopAccountSummary?(data: data)
                 break
             case 4000:
-                self.delegate?.AccountSummaryUpdate(data: data)
+                self.delegate?.AccountSummaryUpdate?(data: data)
                 break
             case 4005:
-                self.delegate?.AccountSummaryRetailUpdate(data: data)
+                self.delegate?.AccountSummaryRetailUpdate?(data: data)
                 break
             case 1005:
-                self.delegate?.PositionUpdate(data: data)
+                self.delegate?.PositionUpdate?(data: data)
                 break
 //            case 1004:
 //                self.delegate?.TicketListResponse(data: data)
 //                break
             case 1011:
-                self.delegate?.TicketListRetailUpdate(data: data)
+                self.delegate?.TicketListRetailUpdate?(data: data)
                 break
             case 1320, 1321, 4010:
-                self.delegate?.AlertMessage(data: data)
+                self.delegate?.AlertMessage?(data: data)
                 break
             case 6000:
-                self.delegate?.OrderUpdate(data: data)
+                self.delegate?.OrderUpdate?(data: data)
                 break
 //            case 6001: break
             case 1181:
-//                let netData = data["netData"]
-//                if netData != nil {
-//                    let marketData = MarketData()
-//                    let instrumentList = marketData.decode(buffer: Array<Character>(netData as! String))
-//                    for instrument in instrumentList {
-//                        self.handlePriceUpdate(data: instrument)
-//                    }
-//                }
-//                else {
-//                    let instrumentList = data["instrumentList"] as! [DATA]
-//                    for instrument in instrumentList {
-//                        self.handlePriceUpdate(data: instrument)
-//                    }
-//                }
-                
-                self.delegate?.NewSignalReceived(data: data)
+                self.delegate?.NewSignalReceived?(data: data)
                 break
             case 1183:
-                self.delegate?.ExpiredSignalsUpdate(data: data)
+                self.delegate?.ExpiredSignalsUpdate?(data: data)
                 break
             default:
                 break

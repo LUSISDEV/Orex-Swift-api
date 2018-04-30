@@ -1,20 +1,20 @@
 import UIKit
 
-public protocol PriceDelegate: class {
-    func priceConnected()
-    func priceDisconnected()
-    func ChangeAccountResponse(data: DATA)
-    func SubscribeFXResponse(data: DATA)
-    func UnsubscribeFXResponse(data: DATA)
-    func SubscribeCFDResponse(data: DATA)
-    func UnsubscribeCFDResponse(data: DATA)
-    func SubscribeSBResponse(data: DATA)
-    func UnsubscribeSBResponse(data: DATA)
+@objc public protocol PriceDelegate: class {
+    @objc func priceConnected()
+    @objc optional func priceDisconnected()
+    @objc optional func ChangeAccountResponse(data: DATA)
+    @objc optional func SubscribeFXResponse(data: DATA)
+    @objc optional func UnsubscribeFXResponse(data: DATA)
+    @objc optional func SubscribeCFDResponse(data: DATA)
+    @objc optional func UnsubscribeCFDResponse(data: DATA)
+    @objc optional func SubscribeSBResponse(data: DATA)
+    @objc optional func UnsubscribeSBResponse(data: DATA)
 }
 
 public class PriceAPI: APIBase {
     private struct Subscription {
-        var cb: (DATA)->()!
+        var cb: (DATA)->()
         var id: Int!
         var owner: NSObject!
     }
@@ -239,7 +239,7 @@ public class PriceAPI: APIBase {
         if(devMode) {
             print("[PRICE] disconnected")
         }
-        delegate?.priceDisconnected()
+        delegate?.priceDisconnected?()
         super.OnClose()
     }
 
@@ -248,25 +248,25 @@ public class PriceAPI: APIBase {
             let mti = data["MTI"] as! Int
             switch (mti) {
             case 5013:
-                self.delegate?.ChangeAccountResponse(data: data)
+                self.delegate?.ChangeAccountResponse?(data: data)
                 break
             case 5010:
-                self.delegate?.SubscribeFXResponse(data: data)
+                self.delegate?.SubscribeFXResponse?(data: data)
                 break
             case 5012:
-                self.delegate?.UnsubscribeFXResponse(data: data)
+                self.delegate?.UnsubscribeFXResponse?(data: data)
                 break
             case 5210:
-                self.delegate?.SubscribeCFDResponse(data: data)
+                self.delegate?.SubscribeCFDResponse?(data: data)
                 break
             case 5212:
-                self.delegate?.UnsubscribeCFDResponse(data: data)
+                self.delegate?.UnsubscribeCFDResponse?(data: data)
                 break
             case 5510:
-                self.delegate?.SubscribeSBResponse(data: data)
+                self.delegate?.SubscribeSBResponse?(data: data)
                 break
             case 5512:
-                self.delegate?.UnsubscribeSBResponse(data: data)
+                self.delegate?.UnsubscribeSBResponse?(data: data)
                 break
             case 3000, 3200, 3500:
                 let netData = data["netData"]
