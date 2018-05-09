@@ -1,5 +1,11 @@
 import UIKit
 
+/**
+ Price Delegate allows to implement some methods which are called by API events.
+
+ **priceConnected() method MUST be implemented whereas other methods are optional.**
+ 
+*/
 @objc public protocol PriceDelegate: class {
     @objc func priceConnected()
     @objc optional func priceDisconnected()
@@ -30,10 +36,40 @@ public class PriceAPI: APIBase {
         super.init()
     }
 
+    /**
+     Connect to the Price server
+     
+     # Usage Example: #
+     ```
+     price.connect(endpoint: "ws://192.168.111.222:12345")
+     ```
+     The response is received in priceConnected event that must be implemented.
+     ```
+     func priceConnected() {
+      // do something
+     }
+     ```
+     
+     - Parameter endpoint: address and port server (ex: "ws://192.168.111.222:12345")
+    */
     public func connect(endpoint: String) {
         super.connect(name: "PRICE", endpoint: endpoint)
     }
 
+    /**
+     Disconnect from the Price server
+     
+     # Usage Example: #
+     ```
+     price.close()
+     ```
+     The response is received in priceDisconnected event that can be implemented.
+     ```
+     func priceDisconnected() {
+     // do something
+     }
+     ```
+    */
     public func close() {
         if (self.priceTimer.isValid) {
             self.priceTimer.invalidate()
@@ -44,11 +80,40 @@ public class PriceAPI: APIBase {
         self.disconect()
     }
 
+    /**
+     Logon request sent to Price Server.
+     
+     # Usage Example: #
+     ```
+     price.login(userId: 20).then(success: {resp in
+        print(resp) // Login response
+     }, failure: {reason, resp in
+        print(reason)
+     })
+     ```
+     - Parameter userId: User ID
+     - Returns : A promise which will be performed when API will receive server response.
+     */
     public func login(userId: Int) -> Promise {
         return super.request(data: ["MTI": 5008,
                                     "userId": userId,])
     }
 
+    /**
+     Change account request sent to Price Server.
+     
+     # Usage Example: #
+     ```
+     price.changeAccount(accNumber: "123456789")
+     ```
+     The response is received in ChangeAccountResponse event that you can implement.
+     ```
+     func ChangeAccountResponse(data: DATA) {
+        print(data)
+     }
+     ```
+     - Parameter accNumber: Client account number.
+     */
     public func changeAccount(accNumber: String) {
         super.request(data: ["MTI": 5013, "accountNumber": accNumber]).then(success:
             {
@@ -78,7 +143,7 @@ public class PriceAPI: APIBase {
 
              }, failure: {_, _ in })
     }
-
+    
     private func livePrice(insid: Int) -> DATA{
         return (self.prices[insid] != nil) ? self.prices[insid]! : self.initPrice(id: insid)
     }
@@ -161,6 +226,33 @@ public class PriceAPI: APIBase {
         self.priceTimer.invalidate()
     }
 
+    /**
+     Subscribe to an instrument
+     
+     # Usage Example: #
+     ```
+     // A first call back is attributed to the instrument which has 25 as instrument ID
+     price.subscribe(insid: 25, cb: {
+        print("Hello from instrument 25")
+     }, instrumentType: "FX", id: 1, owner: self)
+     
+     // A first call back is attributed to the instrument which has 25 as instrument ID
+     price.subscribe(insid: 25, cb: {
+        print("Another hello from instrument 25")
+     }, instrumentType: "FX", id: 2, owner: self)
+     
+     // The second callback is cancelled by using unsubscribe method. The first call back is still running
+     price.unsubscribe(insid: 25, id: 2, owner: self)
+     
+     ```
+     - Parameter insid : instrument ID of the instrument we want to subscribe
+     - Parameter cb : the callback that will be performed when API will receive notification for the choosen instrument
+     - Parameter instrumentType : instrumentType FX, CFD, SB
+     - Parameter id : an id to identify the callback.
+     - Parameter owner : to check if the one which subscribe is the same which try to unsubscribe
+     
+     An id is necessary for each callback to allow to cancel just one or more callback with the same instrument id and not all the callbacks associated with this instrument id
+    */
     public func subscribe(insid: Int, cb: @escaping (DATA)->(), instrumentType: String, id: Int, owner: NSObject) {
         if(self.subscriptions[insid] == nil) {
             self.subscriptions[insid] = []
@@ -171,6 +263,32 @@ public class PriceAPI: APIBase {
         }
     }
 
+    /**
+     Unsubscribe from an instrument
+     
+     # Usage Example: #
+     ```
+     // A first call back is attributed to the instrument which has 25 as instrument ID
+     price.subscribe(insid: 25, cb: {
+     print("Hello from instrument 25")
+     }, instrumentType: "FX", id: 1, owner: self)
+     
+     // A first call back is attributed to the instrument which has 25 as instrument ID
+     price.subscribe(insid: 25, cb: {
+     print("Another hello from instrument 25")
+     }, instrumentType: "FX", id: 2, owner: self)
+     
+     // The second callback is cancelled by using unsubscribe method. The first call back is still running
+     price.unsubscribe(insid: 25, id: 2, owner: self)
+     
+     ```
+     
+     - Parameter insid : instrument ID of the instrument we want to unsubscribe
+     - Parameter id : an id to identify the callback we want to unsubscribe
+     - Parameter owner : to check if the one which subscribe is the same which try to unsubscribe
+     
+     An id is necessary for each callback to allow to cancel just one or more callback with the same instrument id and not all the callbacks associated with this instrument id
+     */
     public func unsubscribe(insid: Int, id: Int, owner: NSObject) {
         if(self.subscriptions[insid] != nil) {
             self.subscriptions[insid]! = self.subscriptions[insid]!.filter {!($0.id == id && $0.owner == owner)}
