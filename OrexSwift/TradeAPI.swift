@@ -9,7 +9,7 @@ import CryptoSwift
  */
 @objc public protocol TradeDelegate: class {
     func tradeConnected()
-    @objc optional func tradeDisconnected()
+    @objc optional func tradeDisconnected(reason: String)
     @objc optional func TopAccountSummary(data: DATA) // 6000
     @objc optional func AccountSummaryRetailUpdate(data: DATA) // 4005
     @objc optional func AccountSummaryUpdate(data: DATA) // 4000
@@ -77,12 +77,12 @@ public class TradeAPI: APIBase {
         super.onConnect()
     }
 
-    internal override func OnClose() {
+    internal override func OnClose(reason: String) {
         if(devMode) {
             print("[TRADE] disconnected")
         }
-        delegate?.tradeDisconnected?()
-        super.OnClose()
+        delegate?.tradeDisconnected?(reason: reason)
+        super.OnClose(reason: reason)
     }
 
     internal override func OnMessage(data : DATA) {

@@ -15,6 +15,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AB1F99A220A9DADB006398B6 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = ../../Frameworks/fat/CryptoSwift.framework; sourceTree = "<group>"; };
+		AB1F99A320A9DADB006398B6 /* SwiftWebSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftWebSocket.framework; path = ../../Frameworks/fat/SwiftWebSocket.framework; sourceTree = "<group>"; };
 		AB92FF1D2064056D00FC4824 /* OrexSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OrexSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB92FF202064056E00FC4824 /* OrexSwift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrexSwift.h; sourceTree = "<group>"; };
 		AB92FF212064056E00FC4824 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -35,11 +37,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AB1F99A120A9DADB006398B6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AB1F99A220A9DADB006398B6 /* CryptoSwift.framework */,
+				AB1F99A320A9DADB006398B6 /* SwiftWebSocket.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AB92FF132064056D00FC4824 = {
 			isa = PBXGroup;
 			children = (
 				AB92FF1F2064056D00FC4824 /* OrexSwift */,
 				AB92FF1E2064056D00FC4824 /* Products */,
+				AB1F99A120A9DADB006398B6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

@@ -45,7 +45,7 @@ public class APIBase {
     var theQueue : [DATA] = []
 
     var socket: WebSocket!
-    var opened: Bool = false
+    var open: Bool = false
     var name = ""
     var requests: [Int:Promise] = [:]
     var queue : [DATA] = []
@@ -55,10 +55,10 @@ public class APIBase {
     internal func connect (name: String, endpoint: String) {
         self.name = name
         self.socket = WebSocket()
-        self.socket.services = [.Background]
+//        self.socket.services = [.Background]
         self.socket.open(endpoint)
         self.socket.event.open = {self.onConnect()}
-        self.socket.event.close = { code, reason, clean in self.OnClose()}
+        self.socket.event.close = { code, reason, clean in self.OnClose(reason: reason)}
         self.socket.event.message = { message in /*print(message)*/ self.OnMessage(data: self.jsonToDic(data: message))}
         self.socket.event.error = { error in self.onError(error: error)}
     }
@@ -68,7 +68,7 @@ public class APIBase {
     }
 
     public func connected () -> Bool {
-        return self.opened
+        return self.open
     }
 
     internal func send(data: DATA) {
@@ -101,11 +101,11 @@ public class APIBase {
     }
 
     internal func onConnect () {
-        self.opened = true
+        self.open = true
     }
 
-    internal func OnClose () {
-        self.opened = false
+    internal func OnClose (reason: String) {
+        self.open = false
         for request in requests {
             request.value.reject(reason: "cancellation", resp: [:])
         }

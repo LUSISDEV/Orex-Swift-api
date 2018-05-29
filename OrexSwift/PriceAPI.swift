@@ -8,7 +8,7 @@ import UIKit
 */
 @objc public protocol PriceDelegate: class {
     @objc func priceConnected()
-    @objc optional func priceDisconnected()
+    @objc optional func priceDisconnected(reason: String)
     @objc optional func ChangeAccountResponse(data: DATA)
     @objc optional func SubscribeFXResponse(data: DATA)
     @objc optional func UnsubscribeFXResponse(data: DATA)
@@ -353,12 +353,12 @@ public class PriceAPI: APIBase {
         super.onConnect()
     }
 
-    internal override func OnClose() {
+    internal override func OnClose(reason: String) {
         if(devMode) {
             print("[PRICE] disconnected")
         }
-        delegate?.priceDisconnected?()
-        super.OnClose()
+        delegate?.priceDisconnected?(reason: reason)
+        super.OnClose(reason: reason)
     }
 
     internal override func OnMessage(data : DATA) {
