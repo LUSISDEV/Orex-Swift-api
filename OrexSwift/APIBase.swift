@@ -1,3 +1,4 @@
+
 import UIKit
 import SwiftWebSocket
 import Foundation
@@ -25,6 +26,8 @@ public class Promise {
 
 public class APIBase {
     
+    var showLogs: Bool = false
+    
     var resultCodes: [Int:String] = [1003: "Invalid MTI",
                                      1004: "Already connected",
                                      1005: "Not connected",
@@ -51,11 +54,20 @@ public class APIBase {
     var queue : [DATA] = []
     var requestId = 1
     var timer = Timer()
+    
+    public func showLogs(show: Bool) {
+        self.showLogs = show
+    }
+    
+    func printLog(object: Any) {
+        if self.showLogs == true {
+            print(object)
+        }
+    }
 
     internal func connect (name: String, endpoint: String) {
         self.name = name
         self.socket = WebSocket()
-//        self.socket.services = [.Background]
         self.socket.open(endpoint)
         self.socket.event.open = {self.onConnect()}
         self.socket.event.close = { code, reason, clean in self.OnClose(reason: reason)}
@@ -80,8 +92,10 @@ public class APIBase {
 
     @objc internal func sendFirstMessage(){
         let data = self.queue.removeFirst()
+        printLog(object: "\n################### SENDING ###################")
+        printLog(object: data)
+        printLog(object: "###############################################\n")
         self.socket.send(data: self.dicToJson(data: data))
-
         if self.queue.count == 0 {
             self.timer.invalidate()
         }
@@ -115,6 +129,9 @@ public class APIBase {
         if (devMode) {
             print("[\(name)] recv: ")
         }
+        printLog(object: "\n################### RECEIVING ###################")
+        printLog(object: data)
+        printLog(object: "##################################################\n")
         if (data["messageId"] != nil && (self.requests[data["messageId"] as! Int] != nil)) {
             let promise: Promise = self.requests[data["messageId"] as! Int]!
             var msg = data

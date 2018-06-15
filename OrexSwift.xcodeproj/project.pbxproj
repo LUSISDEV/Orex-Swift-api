@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB638E1220BD8AE2009DE9C0 /* SignalsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB638E1120BD8AE2009DE9C0 /* SignalsAPI.swift */; };
+		AB638E1720BD8F98009DE9C0 /* SwiftWebSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB638E1520BD8F97009DE9C0 /* SwiftWebSocket.framework */; };
+		AB638E1820BD8F98009DE9C0 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB638E1620BD8F98009DE9C0 /* CryptoSwift.framework */; };
 		AB92FF222064056E00FC4824 /* OrexSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = AB92FF202064056E00FC4824 /* OrexSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AB92FF2C2064058800FC4824 /* TradeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB92FF282064058700FC4824 /* TradeAPI.swift */; };
 		AB92FF2D2064058800FC4824 /* PriceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB92FF292064058700FC4824 /* PriceAPI.swift */; };
@@ -17,6 +20,9 @@
 /* Begin PBXFileReference section */
 		AB1F99A220A9DADB006398B6 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = ../../Frameworks/fat/CryptoSwift.framework; sourceTree = "<group>"; };
 		AB1F99A320A9DADB006398B6 /* SwiftWebSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftWebSocket.framework; path = ../../Frameworks/fat/SwiftWebSocket.framework; sourceTree = "<group>"; };
+		AB638E1120BD8AE2009DE9C0 /* SignalsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalsAPI.swift; sourceTree = "<group>"; };
+		AB638E1520BD8F97009DE9C0 /* SwiftWebSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftWebSocket.framework; sourceTree = "<group>"; };
+		AB638E1620BD8F98009DE9C0 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CryptoSwift.framework; sourceTree = "<group>"; };
 		AB92FF1D2064056D00FC4824 /* OrexSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OrexSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB92FF202064056E00FC4824 /* OrexSwift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrexSwift.h; sourceTree = "<group>"; };
 		AB92FF212064056E00FC4824 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -31,6 +37,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB638E1720BD8F98009DE9C0 /* SwiftWebSocket.framework in Frameworks */,
+				AB638E1820BD8F98009DE9C0 /* CryptoSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -49,6 +57,8 @@
 		AB92FF132064056D00FC4824 = {
 			isa = PBXGroup;
 			children = (
+				AB638E1620BD8F98009DE9C0 /* CryptoSwift.framework */,
+				AB638E1520BD8F97009DE9C0 /* SwiftWebSocket.framework */,
 				AB92FF1F2064056D00FC4824 /* OrexSwift */,
 				AB92FF1E2064056D00FC4824 /* Products */,
 				AB1F99A120A9DADB006398B6 /* Frameworks */,
@@ -71,6 +81,7 @@
 				AB92FF2B2064058800FC4824 /* BinaryPriceStreamDecoder.swift */,
 				AB92FF292064058700FC4824 /* PriceAPI.swift */,
 				AB92FF282064058700FC4824 /* TradeAPI.swift */,
+				AB638E1120BD8AE2009DE9C0 /* SignalsAPI.swift */,
 				AB92FF212064056E00FC4824 /* Info.plist */,
 			);
 			path = OrexSwift;
@@ -158,6 +169,7 @@
 			files = (
 				AB92FF2D2064058800FC4824 /* PriceAPI.swift in Sources */,
 				AB92FF2C2064058800FC4824 /* TradeAPI.swift in Sources */,
+				AB638E1220BD8AE2009DE9C0 /* SignalsAPI.swift in Sources */,
 				AB92FF2E2064058800FC4824 /* APIBase.swift in Sources */,
 				AB92FF2F2064058800FC4824 /* BinaryPriceStreamDecoder.swift in Sources */,
 			);

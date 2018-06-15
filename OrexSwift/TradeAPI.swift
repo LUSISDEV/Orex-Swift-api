@@ -17,8 +17,6 @@ import CryptoSwift
     @objc optional func TicketListRetailUpdate(data: DATA) // 1011
     @objc optional func OrderUpdate(data: DATA) // 6000
     @objc optional func AlertMessage(data: DATA) // 1320 1321 4010
-    @objc optional func NewSignalReceived(data: DATA) // 1181
-    @objc optional func ExpiredSignalsUpdate(data: DATA) // 1183
 }
 
 public class TradeAPI: APIBase {
@@ -109,12 +107,6 @@ public class TradeAPI: APIBase {
                 break
             case 6000:
                 self.delegate?.OrderUpdate?(data: data)
-                break
-            case 1181:
-                self.delegate?.NewSignalReceived?(data: data)
-                break
-            case 1183:
-                self.delegate?.ExpiredSignalsUpdate?(data: data)
                 break
             default:
                 break
@@ -218,28 +210,6 @@ public class TradeAPI: APIBase {
             data["lastSBUpdate"] = lastSBUpdate
         }
         return super.request(data: data)
-    }
-    
-    /**
-     Signals List request sent to Trade Server.
-     
-     Promise callbacks have to be implemented for getting data from server.
-     
-     # Usage Example: #
-     ```
-     trade.getSignalList(deviceTokenId: "123456789").then(success: {resp in
-        print(resp) // print signals list
-     }, failure: {reason, resp in
-        print(reason)
-     })
-     ```
-     
-     - Parameter deviceTokenId : iOS device token
-     - Returns : A promise which will be performed when API will receive server response.
-    */
-    public func getSignalList (deviceTokenId: String) -> Promise {
-        return super.request(data: ["MTI":1180,
-                                    "deviceTokenId": deviceTokenId])
     }
 
     /**
