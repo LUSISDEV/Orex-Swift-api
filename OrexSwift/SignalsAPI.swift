@@ -125,4 +125,8 @@ public class SignalsAPI: APIBase {
                           "signalId":signalId])
     }
     
+    public func getLastExpiredSignals() -> Promise {
+        return super.request(data: ["MTI":1185])
+    }
+    
 }
